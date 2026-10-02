@@ -1,0 +1,8 @@
+OpenStreetMap database and derived cartographic databases:
+Copyright OpenStreetMap contributors.
+Licensed under the Open Database License (ODbL) 1.0.
+Full license: https://opendatacommons.org/licenses/odbl/1-0/
+Attribution and source access: https://www.openstreetmap.org/copyright
+The source AMBA extract and derivative databases are available in release assets.
+
+The OSRM car profile is licensed separately under BSD; see LICENSE-OSRM.txt.
