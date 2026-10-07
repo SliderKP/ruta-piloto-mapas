@@ -1,5 +1,8 @@
 # Mapas públicos AMBA para Ruta Piloto
 
+Para nuevos modos y horarios: [provisionado de movilidad y validación GTFS](mobility/README.md).
+El bundle histórico descrito abajo conserva su grafo de auto y sus hashes originales.
+
 Artefactos cartográficos derivados exclusivamente de datos públicos OpenStreetMap/Geofabrik. No contiene código de la aplicación, cuentas, secretos, domicilios privados de participantes ni viajes.
 
 © OpenStreetMap contributors. Base de datos y derivados bajo [Open Database License 1.0](https://opendatacommons.org/licenses/odbl/1-0/); atribución y acceso a datos fuente: [OpenStreetMap copyright](https://www.openstreetmap.org/copyright).

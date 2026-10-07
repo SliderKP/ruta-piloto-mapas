@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "example_only": true,
+  "operational": false,
+  "consulted_at": "2026-10-07T04:43:36+00:00",
+  "sources": [
+    {
+      "id": "osm-geofabrik-argentina",
+      "dataset_url": "https://download.geofabrik.de/south-america/argentina-latest.osm.pbf",
+      "license": "ODbL-1.0",
+      "attribution": "© OpenStreetMap contributors",
+      "coverage": "An explicit imported extract, documented by each artifact's provenance and hash",
+      "freshness": "Verify at preparation time; this example does not declare a new download",
+      "sha256": null
+    },
+    {
+      "id": "ba-data-public-transit",
+      "catalog_url": "https://data.buenosaires.gob.ar/es/dataset/api-transporte-publico",
+      "catalog_updated_at": "2026-06-17",
+      "license": "CC-BY-2.5-AR",
+      "status": "suspended_by_publisher",
+      "formats": ["GTFS Schedule", "GTFS Realtime", "API"],
+      "download_url": null,
+      "validation_report": null,
+      "feed_id": null,
+      "sha256": null,
+      "valid_until": null,
+      "note": "The publisher announces suspended API and GTFS datasets. No historical archive is declared current."
+    }
+  ],
+  "routing": [
+    {
+      "id": "osrm-car",
+      "engine": "OSRM",
+      "source_ids": ["osm-geofabrik-argentina"],
+      "profile": "car-duration.lua",
+      "application_mode": "car",
+      "costing": "duration",
+      "status": "historical_bundle_documented_in_root_readme",
+      "graph_manifest": "../manifest.json",
+      "service_url": null,
+      "other_modes_supported_by_this_graph": false
+    },
+    {
+      "id": "valhalla-road-modes",
+      "engine": "Valhalla",
+      "source_ids": ["osm-geofabrik-argentina"],
+      "costings": ["auto", "motorcycle", "bicycle", "pedestrian"],
+      "application_mode_costings": {
+        "car": "auto",
+        "motorcycle": "motorcycle",
+        "bicycle": "bicycle",
+        "walk": "pedestrian"
+      },
+      "status": "requires_graph_and_validation",
+      "graph_manifest": null,
+      "service_url": null,
+      "credentials_in_repository": false,
+      "coverage": null
+    },
+    {
+      "id": "otp-scheduled-transit",
+      "engine": "OpenTripPlanner",
+      "contract": "GTFS GraphQL API documented for OTP 2.8",
+      "endpoint_path": "/otp/gtfs/v1",
+      "backend_setting": "OTP_GTFS_GRAPHQL_URL",
+      "application_modes": ["public_transport", "train"],
+      "train_requires_route_types": [2],
+      "source_ids": ["osm-geofabrik-argentina", "ba-data-public-transit"],
+      "status": "requires_current_gtfs_and_graph",
+      "service_url": null,
+      "graph_sha256": null,
+      "feed_validation_reports": [],
+      "current_modes": [],
+      "build_runs_inside_application_api": false,
+      "realtime_available": false
+    }
+  ],
+  "feed_manifest_contract": {
+    "schema_version": 1,
+    "artifact_type": "gtfs_schedule_validation",
+    "admission": "ready_for_graph true with matching ZIP sha256 and service active on as_of",
+    "source": ["url", "license", "consulted_at", "license_verification"],
+    "coverage": ["country", "bbox", "bounds_basis", "modes", "route_types", "timezones"],
+    "calendar": ["active_service_ids", "active_trip_count", "first_service_date", "last_service_date", "valid_until"],
+    "ids": "Keep source feed_id stable in OTP and retain source route_id/trip_id/stop_id. Namespace feeds; do not invent cross-feed equivalence.",
+    "license_policy": "The operator must document the actual redistribution/use terms. The validator records declared terms, without inventing authorization."
+  }
+}
